@@ -1,0 +1,18 @@
+<html>
+    {% load i18n %}
+    <body>
+        <p>{{doc.text}}</p>
+        <p>{%trans 'This template text also may be translated' %}</p>
+
+    <div>
+        <form action="/i18n/setlang/" method="post">{% csrf_token %}
+            <select name="language">
+                {%for lang in LANGUAGES %}
+                    <option value="{{ lang.0 }}">{{ lang.1 }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Go" />
+        </form>
+    </div>
+    </body>
+</html>

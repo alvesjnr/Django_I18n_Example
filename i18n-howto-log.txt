@@ -1,0 +1,45 @@
+- Mark text in views for ugetext
+- include 'load i18n' in template
+- mark text in templatex for trans
+- create locale dir in project root
+- run ./manage.py makemessages -l <pt>
+- run ./manage.py compilemessages
+
+- In settings.py, you may now set availables languages:
+
+LANGUAGES = (
+        ('en','English'),
+        ('pt','Português'),
+)
+
+and current language:
+
+LANGUAGE_CODE = 'pt'
+
+If you now change the LANGUAGE_CODE from 'en' to 'pt', you'll see diferente
+translations in your application
+
+
+==Now we have to let user change the language==
+
+- Enable LocaleMiddleware in settings.py, adding LocaleMiddleware in
+MIDDLEWARE_CLASSES:
+
+MIDDLEWARE_CLASSES = (
+    ...
+    'django.middleware.locale.LocaleMiddleware',
+)
+
+LocaleMiddleware will determines tthe activate language following these steps:
+
+1- lokks for django_data in session;
+2- looks for django_language cookie;
+3- looks for Accept-language in HTTP header;
+4- looks for LANGUAGE_CODE in settings.py
+
+- Enable i18n view (provided by django):
+
+For it, put (r'^i18n/', include('django.conf.urls.i18n')), in urls.py
+
+
+
